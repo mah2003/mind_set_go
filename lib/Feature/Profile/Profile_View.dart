@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 
+List<String> frinds = [
+  "Mohammed Ramadan ",
+  "Rami Abbas",
+  "Hannan Amr",
+  "Ahmed Said",
+  "Ali Nour",
+  "Gmall Hani",
+  "qasem Alaa",
+  "Taher Hosni",
+  "Tamer Ali"
+];
+List<int> points = [980, 870, 852, 805, 750, 705, 505, 120, 80];
+
 class ProfileView extends StatelessWidget {
   ProfileView({super.key});
   final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
@@ -29,7 +42,7 @@ class ProfileView extends StatelessWidget {
               Icons.settings_rounded,
             ),
             iconSize: 36,
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -47,10 +60,8 @@ class ProfileView extends StatelessWidget {
               ),
               subtitle: Text('1452 Points'),
             ),
-            const Gap(30),
-            SizedBox(
-              height: 36,
-              width: double.infinity,
+            const Gap(15),
+            Expanded(
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   maximumSize: MediaQuery.sizeOf(context),
@@ -65,13 +76,40 @@ class ProfileView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child: _buildButton('Activity', Colors.white)),
+                    Expanded(child: _buildButton('Activity', AppColors.back)),
                     Expanded(child: _buildButton('Friends', Colors.white)),
-                    Expanded(child: _buildButton('Achievements', Colors.white)),
+                    Expanded(
+                        child: _buildButton('Achievements', AppColors.back)),
                   ],
                 ),
               ),
-            )
+            ),
+            const Gap(20),
+            // Gamification Progress Section
+            _buildProgressSection(),
+            const Gap(20),
+            // Leaderboard section
+            SizedBox(
+              height: MediaQuery.sizeOf(context).height - 538,
+              child: ListView(
+                scrollDirection: Axis.vertical,
+                children: List.generate(frinds.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: ListTile(
+                      leading: Icon(Icons.person_rounded),
+                      title: Text(
+                        frinds[index],
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(points[index].toString()),
+                      trailing: IconButton(
+                          onPressed: () {}, icon: Icon(Icons.delete_rounded)),
+                    ),
+                  );
+                }),
+              ),
+            ),
           ],
         ),
       ),
@@ -81,19 +119,53 @@ class ProfileView extends StatelessWidget {
   ElevatedButton _buildButton(String label, Color backgroundColor) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: backgroundColor, // Set background color to white
-        foregroundColor:
-            AppColors.blue, // Text color should contrast with the background
+        backgroundColor: backgroundColor,
+        foregroundColor: AppColors.blue,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
       ),
       onPressed: () {},
       child: Text(
-        label, maxLines: 1, // Ensure the text doesn't wrap onto a second line
-        overflow: TextOverflow.ellipsis, // Truncate text with "..."
+        label,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         textAlign: TextAlign.center,
       ),
+    );
+  }
+
+  // Gamification Progress Section
+  Widget _buildProgressSection() {
+    return Column(
+      children: [
+        const Text(
+          'The Progress',
+          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+        ),
+        const Gap(10),
+        _buildProgressBar('Level 1', 0.75, AppColors.blue),
+        const Gap(10),
+        _buildProgressBar('Achievement: First Milestone', 0.50, Colors.orange),
+        const Gap(10),
+        _buildProgressBar('Next Badge: 2000 Points', 0.20, Colors.green),
+      ],
+    );
+  }
+
+  // Custom Progress Bar Widget
+  Widget _buildProgressBar(String label, double progress, Color color) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        const Gap(5),
+        LinearProgressIndicator(
+          value: progress,
+          color: color,
+          backgroundColor: Colors.grey[300],
+        ),
+      ],
     );
   }
 }

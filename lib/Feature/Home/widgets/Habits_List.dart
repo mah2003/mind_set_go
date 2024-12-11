@@ -28,24 +28,24 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Gap(20),
+        const Gap(5),
         DatePicker(
-          height: 100,
-          width: 80,
+          height: MediaQuery.sizeOf(context).height / 7.5,
+          width: MediaQuery.sizeOf(context).width / 5,
           DateTime.now().subtract(const Duration(days: 2)),
           initialSelectedDate: DateTime.now(),
           selectionColor: AppColors.blue,
           selectedTextColor: Colors.white,
-          dayTextStyle: const TextStyle(fontSize: 18),
-          monthTextStyle: const TextStyle(fontSize: 12),
-          dateTextStyle: const TextStyle(fontSize: 18),
+          dayTextStyle: const TextStyle(fontSize: 16),
+          monthTextStyle: const TextStyle(fontSize: 10),
+          dateTextStyle: const TextStyle(fontSize: 16),
           onDateChange: (date) {
             setState(() {
               selectedDate = DateFormat.yMd().format(date);
             });
           },
         ),
-        const Gap(20),
+        const Gap(10),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -61,9 +61,13 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
             ),
           ],
         ),
-        const Gap(20),
-        Image.asset(
-          'assets/Challenge Card.png',
+        const Gap(14),
+        Container(
+          height: MediaQuery.sizeOf(context).height / 9,
+          width: MediaQuery.sizeOf(context).width,
+          child: Image.asset(
+            'assets/Challenge Card.png',
+          ),
         ),
         const Gap(20),
         Row(
@@ -90,9 +94,7 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
             valueListenable: AppLocalStorage.habitBox.listenable(),
             builder: (context, box, child) {
               List<HabitModel?> habitList = [];
-              int completedCount = 0; // Track completed habits
-
-              // Loop through all habits in the box
+              int completedCount = 0;
               box.keys.forEach((key) {
                 var habit = AppLocalStorage.getCachedhabit(key);
 
@@ -101,12 +103,11 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
                     DateTime startDate =
                         DateFormat('MM/dd/yyyy').parse(habit.startdate);
                     DateTime? endDate = habit.enddate != null
-                        ? DateFormat('MM/dd/yyyy').parse(habit.enddate!)
+                        ? DateFormat('MM/dd/yyyy').parse(habit.enddate)
                         : null;
                     DateTime selectedDateParsed =
                         DateFormat('MM/dd/yyyy').parse(selectedDate);
 
-                    // Check if the habit is within the selected date range
                     if (endDate != null) {
                       for (DateTime date = startDate;
                           date.isBefore(endDate) ||
@@ -136,15 +137,13 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
                 }
               });
 
-              // Display text: "X From Y Done"
               String completionText =
                   "$completedCount From ${habitList.length} Done";
 
               return Column(
                 children: [
-                  // Displaying the completion status
                   Container(
-                    height: 80,
+                    height: MediaQuery.sizeOf(context).height / 12,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
@@ -155,10 +154,9 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
                         Icons.crisis_alert_rounded,
                         color: AppColors.white,
                       ),
-                      title: Text(
+                      title: const Text(
                         "Your daily goals almost done! 🔥",
-                        style: const TextStyle(
-                            color: AppColors.white, fontSize: 19),
+                        style: TextStyle(color: AppColors.white, fontSize: 19),
                       ),
                       subtitle: Text(
                         completionText, // Display the dynamically calculated completion text
@@ -168,7 +166,6 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
                     ),
                   ),
                   const Gap(10),
-
                   Expanded(
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),

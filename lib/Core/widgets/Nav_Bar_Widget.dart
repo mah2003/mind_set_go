@@ -19,7 +19,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
     HomeView(),
     const ExploreView(),
     const AddHabit(),
-    Activity_View(),
+    ActivityView(),
     ProfileView(),
   ];
   int currentIndex = 0;
@@ -28,7 +28,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-          iconSize: 28,
+          iconSize: MediaQuery.sizeOf(context).height / 9,
           currentIndex: currentIndex,
           onTap: (value) {
             setState(() {
@@ -39,8 +39,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
             BottomNavigationBarItem(
               icon: Image.asset(
                 'assets/Home.png',
-                width: 32,
-                height: 32,
+                width: MediaQuery.sizeOf(context).height / 9,
+                height: MediaQuery.sizeOf(context).height / 9,
               ),
               activeIcon: SvgPicture.asset(
                 'assets/Primay.svg',

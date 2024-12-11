@@ -7,15 +7,16 @@ environment:
   sdk: ^3.5.3
 
 dependencies:
-  animated_notch_bottom_bar: ^1.0.3
   date_picker_timeline: ^1.2.6
   flutter:
     sdk: flutter
-  flutter_svg: ^2.0.16 
+  flutter_local_notifications: ^18.0.1
+  flutter_svg: ^2.0.16
   gap: ^3.0.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.19.0
+  permission_handler: ^11.3.1
   smooth_page_indicator: ^1.2.0+3
 
 dev_dependencies:

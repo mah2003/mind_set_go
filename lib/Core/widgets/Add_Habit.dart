@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/Services/local_storage.dart';
+import 'package:mind_set_go/Core/Services/notificationServices/Notification.dart';
+
 import 'package:mind_set_go/Core/models/habit_model.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,7 @@ import '../Functions/navigation.dart';
 class AddHabit extends StatefulWidget {
   const AddHabit({super.key, this.model});
   final HabitModel? model;
+
   @override
   State<AddHabit> createState() => _AddHabitState();
 }
@@ -24,6 +27,12 @@ class _AddHabitState extends State<AddHabit> {
   String endtime = DateFormat("hh:mm a").format(DateTime.now());
   var titleControlar = TextEditingController();
   var noteControlar = TextEditingController();
+  NotificationService notificationService = NotificationService();
+  void initState() {
+    super.initState();
+    notificationService.initializeNotification();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,25 +222,31 @@ class _AddHabitState extends State<AddHabit> {
                       }),
                     ),
                   ),
-                  CustomButton(
-                    width: 145,
-                    text: "Add New Habit",
-                    onPressed: () {
-                      String id = '$Title _ ${DateTime.now().toString()}';
-                      AppLocalStorage.cachehabit(
-                          id,
-                          HabitModel(
-                              id: id,
-                              title: titleControlar.text,
-                              note: noteControlar.text,
-                              startdate: startdate,
-                              enddate: enddate,
-                              startTime: starttime,
-                              endTime: endtime,
-                              color: colorIndex,
-                              isCompleted: true));
-                      pushAndRemoveUntil(context, NavBarWidget());
+                  InkWell(
+                    onTap: () {
+                      notificationService.sendNotification(
+                          body: "Hello", title: "people");
                     },
+                    child: CustomButton(
+                      width: 145,
+                      text: "Add New Habit",
+                      onPressed: () {
+                        String id = '$Title _ ${DateTime.now().toString()}';
+                        AppLocalStorage.cachehabit(
+                            id,
+                            HabitModel(
+                                id: id,
+                                title: titleControlar.text,
+                                note: noteControlar.text,
+                                startdate: startdate,
+                                enddate: enddate,
+                                startTime: starttime,
+                                endTime: endtime,
+                                color: colorIndex,
+                                isCompleted: true));
+                        pushAndRemoveUntil(context, NavBarWidget());
+                      },
+                    ),
                   )
                 ],
               )

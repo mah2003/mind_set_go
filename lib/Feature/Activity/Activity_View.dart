@@ -8,12 +8,12 @@ List<String> activities = [
   "Scores",
   "Beast Streak Day",
   "Success Rate",
-  "Faild"
+  "Failed"
 ];
-List<int> values = [25, 7, 93, 3, 92, 3];
+List<int> values = [93, 3, 93, 3, 92, 3];
 
-class Activity_View extends StatelessWidget {
-  Activity_View({super.key});
+class ActivityView extends StatelessWidget {
+  ActivityView({super.key});
   final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
     backgroundColor: AppColors.white,
     foregroundColor: AppColors.blue,
@@ -36,7 +36,7 @@ class Activity_View extends StatelessWidget {
           IconButton(
             onPressed: () {},
             icon: const Icon(
-              Icons.family_restroom_outlined,
+              Icons.percent_rounded,
             ),
             iconSize: 36,
           )
@@ -46,67 +46,96 @@ class Activity_View extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: Column(
           children: [
+            // Tab Buttons (Daily, Weekly, Monthly)
             SizedBox(
               height: 36,
               width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  maximumSize: MediaQuery.sizeOf(context),
-                  backgroundColor: AppColors.back,
-                  foregroundColor: AppColors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  padding: EdgeInsets.zero,
-                ),
-                onPressed: () {},
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: _buildButton('Daily', Colors.white)),
-                    Expanded(child: _buildButton('Weekly', Colors.white)),
-                    Expanded(child: _buildButton('Monthly', Colors.white)),
-                  ],
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: _buildButton('Daily', Colors.white)),
+                  Expanded(child: _buildButton('Weekly', Colors.white)),
+                  Expanded(child: _buildButton('Monthly', Colors.white)),
+                ],
               ),
             ),
             const Gap(15),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height - 250,
-              child: ListView(
-                scrollDirection: Axis.vertical,
-                children: List.generate(6, (index) {
+
+            Expanded(
+              child: ListView.builder(
+                itemCount: activities.length,
+                itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Container(
-                      width: MediaQuery.sizeOf(context).width,
-                      height: MediaQuery.sizeOf(context).height / 6,
+                      width: double.infinity,
+                      height: 150,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(35),
                       ),
-                      child: Center(
-                          child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            " ${activities[index]} :",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                                color: Colors.grey),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      _getActivityIcon(index),
+                                      color: _getActivityColor(index),
+                                      size: 28,
+                                    ),
+                                    const Gap(10),
+                                    Text(
+                                      "${activities[index]}:",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "${values[index].toString()} %",
+                                      style: const TextStyle(
+                                        color: AppColors.black,
+                                        fontSize: 40,
+                                      ),
+                                    ),
+                                    const Gap(5),
+                                    SizedBox(
+                                      width: MediaQuery.sizeOf(context).width /
+                                          4, // Ensure a fixed width for the progress bar
+                                      child: LinearProgressIndicator(
+                                        value: _getProgressValue(index),
+                                        backgroundColor: Colors.grey[300],
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          _getActivityColor(index),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          const Gap(15),
-                          Text(values[index].toString(),
-                              style: const TextStyle(
-                                color: AppColors.black,
-                                fontSize: 40,
-                              ))
                         ],
-                      )),
+                      ),
                     ),
                   );
-                }),
+                },
               ),
             ),
           ],
@@ -132,5 +161,64 @@ class Activity_View extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
     );
+  }
+
+  // Function to map activities to an icon
+  IconData _getActivityIcon(int index) {
+    switch (index) {
+      case 0:
+        return Icons.check_circle_outline;
+      case 1:
+        return Icons.cancel_outlined;
+      case 2:
+        return Icons.score;
+      case 3:
+        return Icons.flash_on; // Use this for Beast Streak Day
+      case 4:
+        return Icons.check_circle;
+      case 5:
+        return Icons.error_outline;
+      default:
+        return Icons.help_outline;
+    }
+  }
+}
+
+Color _getActivityColor(int index) {
+  switch (index) {
+    case 0:
+      return Colors.green;
+    case 1:
+      return Colors.red;
+    case 2:
+      return Colors.blue;
+    case 3:
+      return Colors.orange;
+    case 4:
+      return Colors.purple;
+    case 5:
+      return Colors.grey;
+    default:
+      return Colors.black;
+  }
+}
+
+//Function to calculate progress based on activity
+double _getProgressValue(int index) {
+  switch (index) {
+    case 0: // Completed
+      return values[index] / 100.0;
+    case 1: // Skipped
+      return values[index] / 10.0;
+    case 2: // Scores
+      return values[index] / 100.0;
+    case 3: // Streak (Flash icon)
+      return values[index] / 10.0;
+    case 4: // Success Rate
+      return values[index] / 100.0;
+    case 5: // Failed
+      return values[index] / 10.0;
+    default:
+      return 0.0;
   }
 }

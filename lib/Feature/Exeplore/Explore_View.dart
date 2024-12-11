@@ -43,12 +43,12 @@ List<String> challengs = [
   "Best Writers",
   "Best Programmer",
   "Best Coders",
-  "Gum",
+  "Gym",
   "faster Man",
   "GOOD speaker",
   "fast understander",
   "Speach ",
-  "Computer Science"
+  "Computer "
 ];
 
 class ExploreView extends StatefulWidget {
@@ -68,232 +68,109 @@ class _ExploreViewState extends State<ExploreView> {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30)),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_rounded,
-                size: 35,
-              ))
+            onPressed: () {},
+            icon: const Icon(
+              Icons.search_rounded,
+              size: 35,
+            ),
+          ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Suggested for You"),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "VIEW All",
-                    style: TextStyle(color: AppColors.blue, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
-            const Gap(10),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height / 11,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(10, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                          child: Column(
-                        children: [
-                          Text(
-                            suggested[index],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: AppColors.white),
-                          ),
-                          Text(" ${index * 5 + 5} Minits",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                              ))
-                        ],
-                      )),
-                    ),
-                  );
-                }),
-              ),
-            ),
-            const Gap(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(" Habit Clubs"),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "VIEW All",
-                    style: TextStyle(color: AppColors.blue, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
-            const Gap(10),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height / 11,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(10, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                          child: Column(
-                        children: [
-                          Text(
-                            club[index],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: AppColors.black),
-                          ),
-                          const Gap(15),
-                          Text(" ${index * 5 + 5} Members",
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 14,
-                              ))
-                        ],
-                      )),
-                    ),
-                  );
-                }),
-              ),
-            ),
-            const Gap(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Challenges"),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "VIEW All",
-                    style: TextStyle(color: AppColors.blue, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
-            const Gap(10),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height / 7,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(10, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Container(
-                      width: 225,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          const Icon(
-                            Icons.hourglass_full_sharp,
-                            color: AppColors.white,
-                          ),
-                          Text(
-                            challengs[index],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: AppColors.white),
-                          ),
-                          const Gap(15),
-                          Text(" ${index * 5 + 5} Members",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ))
-                        ],
-                      )),
-                    ),
-                  );
-                }),
-              ),
-            ),
-            const Gap(10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text("Learning"),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "VIEW All",
-                    style: TextStyle(color: AppColors.blue, fontSize: 15),
-                  ),
-                ),
-              ],
-            ),
-            const Gap(12),
-            SizedBox(
-              height: MediaQuery.sizeOf(context).height / 7,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: List.generate(10, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Container(
-                      width: 225,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        color: Colors.blueAccent,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Center(
-                          child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            learning[index],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: AppColors.white),
-                          ),
-                          const Gap(15),
-                          Text(" ${index * 5 + 5} Views",
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                              ))
-                        ],
-                      )),
-                    ),
-                  );
-                }),
-              ),
-            ),
+            _buildSectionTitle("Suggested for You"),
+            _buildCardList(suggested, Colors.blueAccent, "Minits", true),
+            const Gap(20),
+            _buildSectionTitle("Habit Clubs"),
+            _buildCardList(club, AppColors.black, "Members", false),
+            const Gap(20),
+            _buildSectionTitle("Challenges"),
+            _buildCardList(challengs, Colors.blueAccent, "Members", true),
+            const Gap(20),
+            _buildSectionTitle("Learning"),
+            _buildCardList(learning, Colors.blueAccent, "Views", true),
           ],
         ),
+      ),
+    );
+  }
+
+  // Section Title widget
+  Row _buildSectionTitle(String title) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title,
+            style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: AppColors.black)),
+        TextButton(
+          onPressed: () {},
+          child: const Text(
+            "VIEW All",
+            style: TextStyle(color: AppColors.blue, fontSize: 15),
+          ),
+        ),
+      ],
+    );
+  }
+
+  SizedBox _buildCardList(
+      List<String> data, Color cardColor, String unit, bool isChallenge) {
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height / 7,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.sizeOf(context).width / 4,
+                height: MediaQuery.sizeOf(context).height / 3.2,
+                decoration: BoxDecoration(
+                  color: cardColor,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 5,
+                      offset: Offset(2, 2),
+                    ),
+                  ],
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text(
+                        data[index],
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: AppColors.white,
+                        ),
+                      ),
+                      const Gap(15),
+                      Text(
+                        " ${index * 5 + 5} $unit",
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }

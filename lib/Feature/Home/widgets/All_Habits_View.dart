@@ -3,10 +3,16 @@ import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/models/habit_model.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 
-class All_habits_View extends StatelessWidget {
+class All_habits_View extends StatefulWidget {
   const All_habits_View({super.key, required this.model});
 
   final List<HabitModel?> model;
+
+  @override
+  State<All_habits_View> createState() => _All_habits_ViewState();
+}
+
+class _All_habits_ViewState extends State<All_habits_View> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +29,7 @@ class All_habits_View extends StatelessWidget {
         child: Row(children: [
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
-              model.first?.title ?? '',
+              widget.model.first?.title ?? '',
               style: const TextStyle(color: AppColors.white),
             ),
             const Gap(5),
@@ -35,14 +41,14 @@ class All_habits_View extends StatelessWidget {
                 ),
                 const Gap(10),
                 Text(
-                  '${model.first?.startTime} - ${model.first?.endTime}',
+                  '${widget.model.first?.startTime} - ${widget.model.first?.endTime}',
                   style: const TextStyle(color: AppColors.white),
                 )
               ],
             ),
             const Gap(5),
             Text(
-              model.first?.note ?? '',
+              widget.model.first?.note ?? '',
               style: const TextStyle(color: AppColors.white),
             ),
           ]),
@@ -55,7 +61,7 @@ class All_habits_View extends StatelessWidget {
           RotatedBox(
             quarterTurns: 3,
             child: Text(
-              (model.first?.isCompleted ?? false) ? 'COMPLETED' : 'TODO',
+              (widget.model.first?.isCompleted ?? false) ? 'COMPLETED' : 'TODO',
               style: const TextStyle(color: AppColors.white, fontSize: 13),
             ),
           ),

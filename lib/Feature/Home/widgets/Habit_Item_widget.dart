@@ -15,7 +15,7 @@ class Habit_Item_widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (model?.isCompleted != true) {
+        if (model?.isCompleted != false) {
           push(
               context,
               AddHabit(

@@ -56,12 +56,13 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                 Image.asset(
                   pages[index].image,
-                  width: 400,
+                  height: MediaQuery.sizeOf(context).height / 2,
+                  width: MediaQuery.sizeOf(context).width / 1.3,
                 ),
                 const Spacer(),
                 // title
                 Text(pages[index].title,
-                    style: TextStyle(color: AppColors.white, fontSize: 48)),
+                    style: TextStyle(color: AppColors.white, fontSize: 40)),
                 const Gap(20),
                 Text(
                   pages[index].body,
@@ -77,7 +78,7 @@ class _OnboardingViewState extends State<OnboardingView> {
           )),
           // footer
           SizedBox(
-            height: 70,
+            height: MediaQuery.sizeOf(context).height / 9,
             child: Row(
               children: [
                 SmoothPageIndicator(
@@ -95,7 +96,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 const Spacer(),
                 if (currentPage == pages.length - 1)
                   CustomButton(
-                      height: 45,
+                      height: MediaQuery.sizeOf(context).height / 9,
                       text: 'Continue ',
                       onPressed: () {
                         /*  AppLocalStorage.cacheData(

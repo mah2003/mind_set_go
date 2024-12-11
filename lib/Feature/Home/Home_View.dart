@@ -20,14 +20,20 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.backGroundExplore,
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Center(
+            child: Text(
+          "Now All Habits In One Place",
+          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: "Cairo"),
+        )),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               SizedBox(
-                height: 36,
+                height: MediaQuery.sizeOf(context).height / 20,
                 width: double.infinity,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -44,7 +50,7 @@ class _HomeViewState extends State<HomeView> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Expanded(child: _buildButton('Today', Colors.white)),
-                      Expanded(child: _buildButton('Clubs', Colors.white)),
+                      Expanded(child: _buildButton('Clubs', AppColors.back)),
                     ],
                   ),
                 ),
