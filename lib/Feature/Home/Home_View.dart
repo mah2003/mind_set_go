@@ -33,26 +33,15 @@ class _HomeViewState extends State<HomeView> {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.sizeOf(context).height / 20,
+                height: 36,
                 width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    maximumSize: MediaQuery.sizeOf(context),
-                    backgroundColor: AppColors.back,
-                    foregroundColor: AppColors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: EdgeInsets.zero,
-                  ),
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: _buildButton('Today', Colors.white)),
-                      Expanded(child: _buildButton('Clubs', AppColors.back)),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: _buildButton('Daily', Colors.white)),
+                    Expanded(child: _buildButton('Weekly', Colors.white)),
+                    Expanded(child: _buildButton('Monthly', Colors.white)),
+                  ],
                 ),
               ),
               Expanded(child: HabitListBuilder()),
@@ -67,17 +56,17 @@ class _HomeViewState extends State<HomeView> {
 ElevatedButton _buildButton(String label, Color backgroundColor) {
   return ElevatedButton(
     style: ElevatedButton.styleFrom(
-      backgroundColor: backgroundColor, // Set background color to white
-      foregroundColor:
-          AppColors.blue, // Text color should contrast with the background
+      backgroundColor: backgroundColor,
+      foregroundColor: AppColors.blue,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30),
       ),
     ),
     onPressed: () {},
     child: Text(
-      label, maxLines: 1, // Ensure the text doesn't wrap onto a second line
-      overflow: TextOverflow.ellipsis, // Truncate text with "..."
+      label,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
       textAlign: TextAlign.center,
     ),
   );

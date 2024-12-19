@@ -76,11 +76,7 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
             const Text("Habits"),
             TextButton(
               onPressed: () {
-                push(
-                    context,
-                    All_habits_View(
-                      model: allHabitsList,
-                    ));
+                push(context, AllHabitsView());
               },
               child: const Text(
                 "View All",

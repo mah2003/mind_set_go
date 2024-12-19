@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mind_set_go/Core/models/habit_model.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 import 'package:mind_set_go/Core/widgets/Add_Habit.dart';
 import 'package:mind_set_go/Feature/Activity/Activity_View.dart';
@@ -8,7 +9,8 @@ import 'package:mind_set_go/Feature/Home/Home_View.dart';
 import 'package:mind_set_go/Feature/Profile/Profile_View.dart';
 
 class NavBarWidget extends StatefulWidget {
-  const NavBarWidget({super.key});
+  final List<HabitModel> all_Habit_list = [];
+  NavBarWidget({super.key});
 
   @override
   State<NavBarWidget> createState() => _NavBarWidgetState();
@@ -18,7 +20,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   List<Widget> pages = [
     HomeView(),
     const ExploreView(),
-    const AddHabit(),
+    AddHabit(),
     ActivityView(),
     ProfileView(),
   ];

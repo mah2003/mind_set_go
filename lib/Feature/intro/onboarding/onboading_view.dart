@@ -3,7 +3,8 @@ import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/Functions/navigation.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 import 'package:mind_set_go/Core/widgets/custom_button.dart';
-import 'package:mind_set_go/Core/widgets/nav_bar_widget.dart';
+import 'package:mind_set_go/Feature/Home_switcher/home_switcher.dart';
+import 'package:mind_set_go/Feature/auth/login.dart';
 import 'package:mind_set_go/Feature/intro/onboarding/onboarding_model.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -30,7 +31,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                 /*   AppLocalStorage.cacheData(
                     key: AppLocalStorage.onboarding, value: true);*/
 
-                pushReplacement(context, const NavBarWidget());
+                pushReplacement(context, home_switcher());
               },
               child: const Text('Skip',
                   style: TextStyle(color: AppColors.white, fontSize: 20)),
@@ -56,7 +57,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
                 Image.asset(
                   pages[index].image,
-                  height: MediaQuery.sizeOf(context).height / 2,
+                  height: MediaQuery.sizeOf(context).height / 3,
                   width: MediaQuery.sizeOf(context).width / 1.3,
                 ),
                 const Spacer(),
@@ -96,12 +97,12 @@ class _OnboardingViewState extends State<OnboardingView> {
                 const Spacer(),
                 if (currentPage == pages.length - 1)
                   CustomButton(
-                      height: MediaQuery.sizeOf(context).height / 9,
+                      height: MediaQuery.sizeOf(context).height / 15,
                       text: 'Continue ',
                       onPressed: () {
                         /*  AppLocalStorage.cacheData(
                             key: AppLocalStorage.onboarding, value: true);*/
-                        pushReplacement(context, const NavBarWidget());
+                        pushReplacement(context, home_switcher());
                       },
                       width: 120)
               ],

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/Services/local_storage.dart';
-import 'package:mind_set_go/Core/Services/notificationServices/Notification.dart';
-
+import 'package:mind_set_go/Core/Services/notificationServices/localNotificationService.dart';
 import 'package:mind_set_go/Core/models/habit_model.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +11,7 @@ import 'package:mind_set_go/Core/widgets/nav_bar_widget.dart';
 import '../Functions/navigation.dart';
 
 class AddHabit extends StatefulWidget {
-  const AddHabit({super.key, this.model});
+  AddHabit({super.key, this.model});
   final HabitModel? model;
 
   @override
@@ -27,10 +26,11 @@ class _AddHabitState extends State<AddHabit> {
   String endtime = DateFormat("hh:mm a").format(DateTime.now());
   var titleControlar = TextEditingController();
   var noteControlar = TextEditingController();
-  NotificationService notificationService = NotificationService();
+  final List<HabitModel> all_habits_list = [];
+  LocalNotificationService notificationService = LocalNotificationService();
   void initState() {
     super.initState();
-    notificationService.initializeNotification();
+    LocalNotificationService.initialize();
   }
 
   @override
@@ -61,12 +61,13 @@ class _AddHabitState extends State<AddHabit> {
               ),
               const Gap(10),
               const Text(
-                "Note",
+                "Impact",
               ),
               const Gap(5),
               TextFormField(
                 controller: noteControlar,
-                decoration: const InputDecoration(hintText: 'Add Habit  Note'),
+                decoration:
+                    const InputDecoration(hintText: 'Add Habit  Impact'),
               ),
               const Text(
                 " Start Habit Date",
@@ -222,31 +223,40 @@ class _AddHabitState extends State<AddHabit> {
                       }),
                     ),
                   ),
-                  InkWell(
-                    onTap: () {
-                      notificationService.sendNotification(
-                          body: "Hello", title: "people");
+                  CustomButton(
+                    width: 145,
+                    text: "Add New Habit",
+                    onPressed: () async {
+                      // Send notification
+
+                      LocalNotificationService.showNotification();
+
+                      // Create habit ID
+                      String id =
+                          '$titleControlar _ ${DateTime.now().toString()}';
+
+                      // Create the new habit
+                      HabitModel newHabit = HabitModel(
+                        id: id,
+                        title: titleControlar.text,
+                        note: noteControlar.text,
+                        startdate: startdate,
+                        enddate: enddate,
+                        startTime: starttime,
+                        endTime: endtime,
+                        color: colorIndex,
+                        isCompleted: false,
+                      );
+
+                      // Save the habit to local storage (or wherever you save it)
+                      AppLocalStorage.cachehabit(id, newHabit);
+
+                      // Add the habit to the global list
+                      all_habits_list.add(newHabit);
+
+                      // Navigate to the next screen
+                      pushAndRemoveUntil(context, NavBarWidget());
                     },
-                    child: CustomButton(
-                      width: 145,
-                      text: "Add New Habit",
-                      onPressed: () {
-                        String id = '$Title _ ${DateTime.now().toString()}';
-                        AppLocalStorage.cachehabit(
-                            id,
-                            HabitModel(
-                                id: id,
-                                title: titleControlar.text,
-                                note: noteControlar.text,
-                                startdate: startdate,
-                                enddate: enddate,
-                                startTime: starttime,
-                                endTime: endtime,
-                                color: colorIndex,
-                                isCompleted: true));
-                        pushAndRemoveUntil(context, NavBarWidget());
-                      },
-                    ),
                   )
                 ],
               )

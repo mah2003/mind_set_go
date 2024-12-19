@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
@@ -37,9 +38,11 @@ class ProfileView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
             icon: const Icon(
-              Icons.settings_rounded,
+              Icons.logout_rounded,
             ),
             iconSize: 36,
           ),

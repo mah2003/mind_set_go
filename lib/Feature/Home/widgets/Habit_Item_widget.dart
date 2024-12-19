@@ -42,7 +42,7 @@ class Habit_Item_widget extends StatelessWidget {
               size: 50,
             ),
             title: Text(
-              model?.title ?? '',
+             "${model?.title ?? ''} (${model?.note??''})",
               style: const TextStyle(
                   color: AppColors.white,
                   fontWeight: FontWeight.bold,
