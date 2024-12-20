@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:mind_set_go/Core/Functions/navigation.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
+import 'package:mind_set_go/Feature/Home/widgets/chalenge_View.dart';
 
 List<String> learning = [
   "Why should we drink water often?",
@@ -108,7 +110,9 @@ class _ExploreViewState extends State<ExploreView> {
                 fontWeight: FontWeight.bold,
                 color: AppColors.black)),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            push(context, challenge_View());
+          },
           child: const Text(
             "VIEW All",
             style: TextStyle(color: AppColors.blue, fontSize: 15),

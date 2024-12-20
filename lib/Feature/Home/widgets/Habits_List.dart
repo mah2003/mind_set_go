@@ -61,15 +61,14 @@ class _HabitListBuilderState extends State<HabitListBuilder> {
             ),
           ],
         ),
-        const Gap(14),
         Container(
-          height: MediaQuery.sizeOf(context).height / 9,
+          height: MediaQuery.sizeOf(context).height / 14,
           width: MediaQuery.sizeOf(context).width,
           child: Image.asset(
+            fit: BoxFit.cover,
             'assets/Challenge Card.png',
           ),
         ),
-        const Gap(20),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [

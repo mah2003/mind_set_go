@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:mind_set_go/Core/Functions/navigation.dart';
 import 'package:mind_set_go/Core/utils/Colors.dart';
-import 'package:mind_set_go/Core/widgets/Nav_Bar_Widget.dart';
 import 'package:mind_set_go/Core/widgets/custom_button.dart';
 import 'package:mind_set_go/Feature/auth/register.dart';
 
@@ -18,10 +17,23 @@ class _LoginViewState extends State<LoginView> {
   final formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  Future Login() async {
+  /* Future Login() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim());
+  }*/
+  Future login() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: emailController.text.trim(),
+              password: passwordController.text.trim());
+      print("Login successful: ${userCredential.user?.uid}");
+    } on FirebaseAuthException catch (e) {
+      print("Error: ${e.code} - ${e.message}");
+    } catch (e) {
+      print("Unknown error: $e");
+    }
   }
 
   @override
@@ -90,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
                   text: 'Login',
                   onPressed: () {
                     if (formKey.currentState?.validate() ?? false) {
-                      Login();
+                      login();
                     }
                   },
                 ),
