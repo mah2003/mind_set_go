@@ -3,7 +3,6 @@ import 'package:mind_set_go/Core/Services/local_storage.dart';
 import 'package:mind_set_go/Core/Services/notificationServices/localNotificationService.dart';
 import 'package:mind_set_go/Core/models/habit_model.dart';
 import 'package:mind_set_go/Feature/intro/SplashView.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:mind_set_go/firebase_options.dart';
